@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Image, Text, View, Alert, ScrollView, Button } from 'react-native';
+import { StyleSheet, Image, Text, View, Alert, ScrollView, Button } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 
 const AnimalApp = ({ picture, answer, ansSelect }) => {
@@ -11,9 +11,9 @@ const AnimalApp = ({ picture, answer, ansSelect }) => {
         ansSelect(value === answer);
     };
     return (
-        <View style={{ marginBottom: 20 }}>
-            <Image source={picture} style={{ width: 400, height: 400 }} />
-            <Text>What is the animal?</Text>
+        <View style={styles.container} >
+            <Image source={picture} style={styles.picture} />
+            <Text style={styles.questionBox}>What is the animal?</Text>
             <RNPickerSelect
                 onValueChange={checkSelect}
                 items={[
@@ -27,6 +27,49 @@ const AnimalApp = ({ picture, answer, ansSelect }) => {
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+
+    picture: {
+        width: 400,
+        height: 390,
+        borderWidth: 2,
+    },
+    container: {
+        borderWidth: 2,
+        marginVertical: 20,
+        alignItems: 'center',
+
+    },
+    header: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 10,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        fontSize:30
+    },
+    scrollContainer: {
+        paddingVertical: 20,
+        alignContent: 'center',
+        flexDirection: 'column',
+    },
+    questionBox: {
+        borderWidth: 2,
+        backgroundColor: 'steelblue',
+        paddingVertical: 6,
+        paddingHorizontal: 100,
+        margin: 5,
+        fontWeight: 'bold',
+        letterSpacing: 1,
+        color: 'white',
+        fontSize: 19
+    },
+    button: {
+        marginEnd: 10,
+    }
+})
 
 const ShowImg = () => {
 
@@ -51,16 +94,21 @@ const ShowImg = () => {
     };
 
     return (
-        <ScrollView>
+        <ScrollView style={styles.scrollContainer}>
+            <View>
+                <Text style={styles.header}>ANIMAL QUIZ</Text>
+            </View>
             <AnimalApp picture={require('./img/bee.jpg')} answer="bee" ansSelect={answer} />
             <AnimalApp picture={require('./img/deer.jpg')} answer="dear" ansSelect={answer}/>
             <AnimalApp picture={require('./img/crocodile.jpg')} answer="crocodile" ansSelect={answer}/>
             <AnimalApp picture={require('./img/owl.jpg')} answer="owl" ansSelect={answer}/>
             <AnimalApp picture={require('./img/elephant.jpg')} answer="elephant" ansSelect={answer}/>
-            <Button
-                onPress={checkAnswers}
-                title="SUBMIT ANSWER"
-            />
+            <View style={styles.button}>
+                <Button
+                    onPress={checkAnswers}
+                    title="SUBMIT ANSWER"
+                />
+            </View>
         </ScrollView>
     );
 };
